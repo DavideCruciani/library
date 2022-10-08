@@ -3,6 +3,8 @@ const overlay = document.querySelector(".overlay")
 const modal = document.querySelector(".modal")
 const removeButton = document.querySelectorAll(".remove")
 const title = document.querySelector("#title")
+const Form = document.querySelector(".form")
+const booksGrid = document.querySelector(".books-grid");
 
 /* BUTTON TO OPEN THE MODAL */
 
@@ -18,6 +20,11 @@ overlay.addEventListener("click", () => {
   modal.classList.remove("active");
 })
 
+function CloseModalAfterSubmitting() {
+  overlay.classList.remove("active");
+  modal.classList.remove("active");
+}
+
 /* DATA */
 
 let myLibrary = [];
@@ -29,44 +36,39 @@ function Book(title, author, pages, read) {
   this.read = read
 }
 
-function addBookToLibrary(title, author, pages, read) {
-  let book = new Book(title, author, pages, read);
-  myLibrary.push(book)
+const getBookFromInput = (event) => {
+  event.preventDefault();
+  const newTitle = document.getElementById('title').value
+  const newAuthor = document.getElementById('author').value
+  const newPages = document.getElementById('pages').value
+  const newRead = document.getElementById('isRead').checked
+  addBookToLibrary(newTitle, newAuthor, newPages, newRead);
 }
 
-const submit = document.getElementById("submit");
-
-const Title = document.getElementById("title");
-const Author = document.getElementById("author");
-const Pages = document.getElementById("pages");
-const Read = document.getElementById("isRead");
-
-const booksGrid = document.querySelector(".books-grid");
-
-
-
-addBookToLibrary("Il libro 2", "by Luciano Spada", "269pg", "read")
-addBookToLibrary("Il libro 3", "by Luciano Spada", "269pg", "read")
-addBookToLibrary("La Bibbia", "Cristo", "56pg", "read")
+function addBookToLibrary(title, author, pages, read) {
+  this.book = new Book(title, author, pages, read);
+  myLibrary.push(this.book);
+  bookCreator()
+}
 
 /* BOOKS CARDS :D */
 
-myLibrary.forEach(Book => {
+function bookCreator() {
   let book = document.createElement("div");
   book.classList.add("book");
   booksGrid.appendChild(book);
 
   let bookName = document.createElement("p")
   bookName.classList.add("title");
-  bookName.textContent = Book.title;
+  bookName.textContent = this.book.title;
   book.appendChild(bookName);
 
   let bookAuthor = document.createElement("p")
-  bookAuthor.textContent = Book.author;
+  bookAuthor.textContent = this.book.author;
   book.appendChild(bookAuthor);
 
   let bookPages = document.createElement("p")
-  bookPages.textContent = Book.pages;
+  bookPages.textContent = this.book.pages;
   book.appendChild(bookPages);
 
   let buttonGroup = document.createElement("div")
@@ -75,13 +77,80 @@ myLibrary.forEach(Book => {
 
   let Button1 = document.createElement("button")
   Button1.classList.add("card-button");
+  Button1.classList.add("read-button");
   Button1.textContent = "Read";
   buttonGroup.appendChild(Button1);
-
+  
   let Button2 = document.createElement("button")
   Button2.classList.add("card-button");
   Button2.classList.add("remove");
   Button2.textContent = "Remove";
   buttonGroup.appendChild(Button2);
 
-});
+  /* CARDS BUTTONS FUNCTIONALITY :D */
+
+  if (this.book.read === false) {
+    Button1.classList.add("red-button");
+    Button1.textContent = "Not Read"
+  } else {
+    Button1.classList.add("green-button");
+  }
+
+};
+
+
+
+
+
+
+
+
+
+
+
+
+Form.addEventListener("submit", getBookFromInput);
+Form.addEventListener("submit", CloseModalAfterSubmitting);
+
+addBookToLibrary('Il libro', 'Luciano Spada', '256pg', true)
+addBookToLibrary('Il libro 2', 'Luciano Spada', '256pg', false)
+addBookToLibrary('Il libro 3', 'Luciano Spada', '256pg', true)
+
+/* CARDS READ BUTTONS :D */
+
+const ReadButton = document.querySelectorAll(".read-button");
+
+const buttonPressed = e => {
+  if (e.target.classList.contains("red-button")) {
+  e.target.classList.replace("red-button", "green-button");
+  e.target.textContent = "Read"
+  } else {
+    e.target.classList.replace("green-button", "red-button")
+    e.target.textContent = "Not Read"
+  }
+}
+
+for (let button of ReadButton) {
+  button.addEventListener("click", buttonPressed);
+}
+
+/* CARDS REMOVE BUTTONS :D */
+
+const RemoveButton = document.querySelectorAll(".remove");
+
+const buttonRemove = e => {
+  const parent = e.target.parentElement.parentElement.parentElement;
+  const child =  e.target.parentElement.parentElement;
+  bookTitle = child.firstChild.textContent;
+  for (i = 0; i < myLibrary.length; i++) {
+    if (myLibrary[i].title == bookTitle) {
+      myLibrary.splice(i, 1);
+    }
+  }
+
+  parent.removeChild(child);
+}
+
+for (let button of RemoveButton) {
+  button.addEventListener("click", buttonRemove);
+}

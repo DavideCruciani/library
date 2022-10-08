@@ -81,7 +81,7 @@ main {
 
 .card-button {
   background-color: white;
-  padding: 10px 100px;
+  padding: 10px 90px;
   border-radius: 8px;
   border: none;
   font-size: 20px;
@@ -89,8 +89,12 @@ main {
   color: black;
 }
 
-.card-button:first-of-type {
-  background-color: rgb(170, 239, 97);
+.green-button {
+  background: rgb(170, 239, 97);
+}
+
+.red-button {
+  background: #f64646;
 }
 
 .title {
