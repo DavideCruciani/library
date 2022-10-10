@@ -11,6 +11,7 @@ const booksGrid = document.querySelector(".books-grid");
 addButton.addEventListener("click", () => {
   overlay.classList.add("active");
   modal.classList.add("active");
+  Form.reset();
 })
 
 /* BUTTON TO CLOSE THE MODAL */
@@ -51,71 +52,6 @@ function addBookToLibrary(title, author, pages, read) {
   bookCreator()
 }
 
-/* BOOKS CARDS :D */
-
-function bookCreator() {
-  let book = document.createElement("div");
-  book.classList.add("book");
-  booksGrid.appendChild(book);
-
-  let bookName = document.createElement("p")
-  bookName.classList.add("title");
-  bookName.textContent = this.book.title;
-  book.appendChild(bookName);
-
-  let bookAuthor = document.createElement("p")
-  bookAuthor.textContent = this.book.author;
-  book.appendChild(bookAuthor);
-
-  let bookPages = document.createElement("p")
-  bookPages.textContent = this.book.pages;
-  book.appendChild(bookPages);
-
-  let buttonGroup = document.createElement("div")
-  buttonGroup.classList.add("button-group");
-  book.appendChild(buttonGroup);
-
-  let Button1 = document.createElement("button")
-  Button1.classList.add("card-button");
-  Button1.classList.add("read-button");
-  Button1.textContent = "Read";
-  buttonGroup.appendChild(Button1);
-  
-  let Button2 = document.createElement("button")
-  Button2.classList.add("card-button");
-  Button2.classList.add("remove");
-  Button2.textContent = "Remove";
-  buttonGroup.appendChild(Button2);
-
-  /* CARDS BUTTONS FUNCTIONALITY :D */
-
-  if (this.book.read === false) {
-    Button1.classList.add("red-button");
-    Button1.textContent = "Not Read"
-  } else {
-    Button1.classList.add("green-button");
-  }
-
-};
-
-
-
-
-
-
-
-
-
-
-
-
-Form.addEventListener("submit", getBookFromInput);
-Form.addEventListener("submit", CloseModalAfterSubmitting);
-
-addBookToLibrary('Il libro', 'Luciano Spada', '256pg', true)
-addBookToLibrary('Il libro 2', 'Luciano Spada', '256pg', false)
-addBookToLibrary('Il libro 3', 'Luciano Spada', '256pg', true)
-
 /* CARDS READ BUTTONS :D */
 
 const ReadButton = document.querySelectorAll(".read-button");
@@ -128,10 +64,6 @@ const buttonPressed = e => {
     e.target.classList.replace("green-button", "red-button")
     e.target.textContent = "Not Read"
   }
-}
-
-for (let button of ReadButton) {
-  button.addEventListener("click", buttonPressed);
 }
 
 /* CARDS REMOVE BUTTONS :D */
@@ -151,6 +83,62 @@ const buttonRemove = e => {
   parent.removeChild(child);
 }
 
-for (let button of RemoveButton) {
-  button.addEventListener("click", buttonRemove);
-}
+/* CREATION OF BOOKS CARDS :D */
+
+function bookCreator() {
+  let book = document.createElement("div");
+  book.classList.add("book");
+  booksGrid.appendChild(book);
+
+  let bookName = document.createElement("p")
+  bookName.classList.add("title");
+  bookName.textContent = this.book.title;
+  book.appendChild(bookName);
+
+  let bookAuthor = document.createElement("p")
+  bookAuthor.textContent = this.book.author;
+  book.appendChild(bookAuthor);
+
+  let bookPages = document.createElement("p")
+  bookPages.textContent = `${this.book.pages} Pages`;
+  book.appendChild(bookPages);
+
+  let buttonGroup = document.createElement("div")
+  buttonGroup.classList.add("button-group");
+  book.appendChild(buttonGroup);
+
+  let Button1 = document.createElement("button")
+  Button1.classList.add("card-button");
+  Button1.classList.add("read-button");
+  Button1.textContent = "Read";
+  buttonGroup.appendChild(Button1);
+  
+  let Button2 = document.createElement("button")
+  Button2.classList.add("card-button");
+  Button2.classList.add("remove");
+  Button2.textContent = "Remove";
+  buttonGroup.appendChild(Button2);
+
+  Button1.addEventListener("click", buttonPressed);
+
+  Button2.addEventListener("click", buttonRemove);
+
+  if (this.book.read === false) {
+    Button1.classList.add("red-button");
+    Button1.textContent = "Not Read"
+  } else {
+    Button1.classList.add("green-button");
+  }
+
+};
+
+/* SUBMITTING LISTENERS */
+
+Form.addEventListener("submit", getBookFromInput);
+Form.addEventListener("submit", CloseModalAfterSubmitting);
+
+/* EXAMPLES BOOKS */
+
+addBookToLibrary('Il piccolo principe', 'Antoine de Saint-Exupéry', '137', true)
+addBookToLibrary('1984', 'George Orwell', '654', false)
+addBookToLibrary('Via col vento', 'Margaret Mitchell', '756', true)

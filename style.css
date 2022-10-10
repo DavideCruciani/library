@@ -91,10 +91,12 @@ main {
 
 .green-button {
   background: rgb(170, 239, 97);
+  padding: 10px 90px;
 }
 
 .red-button {
   background: #f64646;
+  padding: 10px 80px;
 }
 
 .title {
