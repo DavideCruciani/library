@@ -13,7 +13,7 @@ html {
 header {
   text-align: center;
   padding: 20px;
-  background-color: cornflowerblue;
+  background-color: orange;
 }
 
 h1 {
@@ -33,11 +33,11 @@ main {
   border: none;
   font-size: 20px;
   cursor: pointer;
-  color: cornflowerblue;
+  color: orange;
 }
 
 .add-button:hover {
-  background-color: cornflowerblue;
+  background-color: orange;
   color: white;
 }
 
@@ -62,7 +62,7 @@ main {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  background-color: cornflowerblue;
+  background-color: orange;
   justify-content: space-between;
   padding: 20px;
   border-radius: 8px;
@@ -87,6 +87,10 @@ main {
   font-size: 20px;
   cursor: pointer;
   color: black;
+}
+
+.card-button:hover {
+  scale: 1.02;
 }
 
 .green-button {
@@ -123,7 +127,7 @@ main {
   margin-left: -150px;
   margin-top: -150px;
   width: 300px;
-  background-color: cornflowerblue;
+  background-color: orange;
   padding: 20px;
   border-radius: 8px;
   font-size: 18px;
@@ -163,7 +167,7 @@ main {
 }
 
 .submit {
-  background-color: rgb(170, 239, 97);
+  background-color: yellow;
   padding: 10px 100px;
   width: 100%;
   border-radius: 8px;
@@ -171,6 +175,10 @@ main {
   font-size: 20px;
   cursor: pointer;
   color: black;
+}
+
+.submit:hover {
+  scale: 1.02;
 }
 
 .active {
